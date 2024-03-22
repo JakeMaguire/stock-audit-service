@@ -1,0 +1,57 @@
+service: stock-audit-service
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+
+resources:
+  Resources:
+    StockAuditQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        QueueName: StockAuditQueue
+
+functions:
+  # stockAudit:
+  #   handler: src/index.handler
+  getStockAudit:
+    handler: src/handlers/getStockAudit/index.handler
+    events:
+      - http:
+          path: stock/audit
+          method: get
+    # events:
+    #   - sqs:
+    #       arn:
+    #         Fn::GetAtt:
+    #           - StockAuditQueue
+    #           - Arn
+
+    # StockAuditQueueTopicSubscription:
+    #   Type: "AWS::SNS::Subscription"
+    #   Properties:
+    #     TopicArn: CHANGEME
+    #     Endpoint: !GetAtt StockAuditQueue.Arn
+    #     Protocol: sqs
+    #     FilterPolicyScope: MessageBody
+    #     FilterPolicy:
+    #       eventName:
+    #         - StockAudit
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline-sqs
+  - serverless-offline
+
+custom:
+  serverless-offline-sqs:
+    sqsHost: 127.0.0.1
+    sqsPort: 9324
+    autoCreate: true
+    apiVersion: "latest"
+    endpoint: http://127.0.0.1:9324
+    region: eu-west-2
+    accessKeyId: root
+    secretAccessKey: root
+    skipCacheInvalidation: false
