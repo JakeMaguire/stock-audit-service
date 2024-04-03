@@ -11,23 +11,6 @@ resources:
       Type: "AWS::SQS::Queue"
       Properties:
         QueueName: StockAuditQueue
-
-functions:
-  # stockAudit:
-  #   handler: src/index.handler
-  getStockAudit:
-    handler: src/handlers/getStockAudit/index.handler
-    events:
-      - http:
-          path: stock/audit
-          method: get
-    # events:
-    #   - sqs:
-    #       arn:
-    #         Fn::GetAtt:
-    #           - StockAuditQueue
-    #           - Arn
-
     # StockAuditQueueTopicSubscription:
     #   Type: "AWS::SNS::Subscription"
     #   Properties:
@@ -38,6 +21,22 @@ functions:
     #     FilterPolicy:
     #       eventName:
     #         - StockAudit
+
+functions:
+  stockAudit:
+    handler: src/handlers/stockAuditQueueConsumer/index.handler
+    # events:
+    #   - sqs:
+    #       arn:
+    #         Fn::GetAtt:
+    #           - StockAuditQueue
+    #           - Arn
+  getStockAudit:
+    handler: src/handlers/getStockAudit/index.handler
+    events:
+      - http:
+          path: stock/audit
+          method: get
 
 plugins:
   - serverless-esbuild

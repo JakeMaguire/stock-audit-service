@@ -1,0 +1,20 @@
+{
+  "Records": [
+    {
+      "messageId": "19dd0b57-b21e-4ac1-bd88-01bbb068cb78",
+      "receiptHandle": "MessageReceiptHandle",
+      "body": "{\n    \"containerId\": 12345,\n    \"containerLabel\": \"CAS1234567891\",\n    \"type\": \"delivery\",\n    \"quantity\": 120,\n    \"user\": \"Jake Maguire\",\n    \"fromSite\": {\n        \"siteId\": 1,\n        \"siteName\": \"CH001 (Chippenham, UK)\",\n        \"locationId\": 1,\n        \"locationName\": \"A001\",\n        \"hub\": 123\n    },\n    \"toSite\": {\n        \"siteId\": 2,\n        \"siteName\": \"MA001 (Madrid, ES)\",\n        \"locationId\": 2,\n        \"locationName\": \"B123\",\n        \"hub\": 24\n    },\n    \"eventTime\": \"2024-03-22T14:22:47.000Z\"\n}",
+      "attributes": {
+        "ApproximateReceiveCount": "1",
+        "SentTimestamp": "1523232000000",
+        "SenderId": "123456789012",
+        "ApproximateFirstReceiveTimestamp": "1523232000001"
+      },
+      "messageAttributes": {},
+      "md5OfBody": "7b270e59b47ff90a553787216d55d91d",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:eu-west-1:156445482446:TestQueue",
+      "awsRegion": "eu-west-1"
+    }
+  ]
+}

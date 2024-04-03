@@ -6,6 +6,7 @@ import {
   varchar,
   datetime,
 } from "drizzle-orm/mysql-core";
+import { createInsertSchema } from "drizzle-zod";
 
 export const stockAudit = mysqlTable(
   "stock_audit",
@@ -35,3 +36,10 @@ export const stockAudit = mysqlTable(
     ),
   })
 );
+
+export const insertUserSchema = createInsertSchema(stockAudit);
+
+export type NewStockAudit = Omit<
+  typeof stockAudit.$inferInsert,
+  "createdAt" | "id"
+>;

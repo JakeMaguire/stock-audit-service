@@ -2,8 +2,8 @@ import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
 import httpHeaderNormalizer from "@middy/http-header-normalizer";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
-import { z } from "zod";
 import { getStockAudit } from "../../services/stockAuditService";
+import { z } from "zod";
 
 export const stockAuditSchema = z
   .object({
@@ -23,7 +23,7 @@ const getStockAuditHandler = async (event: APIGatewayProxyEventV2) => {
   return {
     statusCode: 200,
     body: JSON.stringify({
-      stockAudit,
+      ...stockAudit,
     }),
   };
 };
