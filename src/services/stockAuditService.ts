@@ -10,14 +10,6 @@ export const getStockAudit = async (containerLabel: string) => {
   const containerId = containerAuditResults[0].containerId;
 
   const mappedEvents = containerAuditResults.map((containerAudit) => {
-    const fromLocation = {
-      siteId: containerAudit.fromLocationSiteId,
-      siteName: containerAudit.fromLocationSiteName,
-      locationId: containerAudit.fromLocationSiteId,
-      locationName: containerAudit.fromLocationnName,
-      hub: containerAudit.fromLocationHub,
-    };
-
     const toLocation = {
       siteId: containerAudit.toLocationSiteId,
       siteName: containerAudit.toLocationSiteName,
@@ -29,9 +21,11 @@ export const getStockAudit = async (containerLabel: string) => {
     return {
       id: containerAudit.id,
       type: containerAudit.type,
-      quantity: containerAudit.quantity,
+      caseQuantity: containerAudit.caseQuantity,
       user: containerAudit.user,
-      fromLocation,
+      deliveryId: containerAudit.deliveryId,
+      adjustedQuantity: containerAudit.adjustmentQuantity,
+      sku: containerAudit.sku,
       toLocation,
       eventTime: containerAudit.eventTime,
       createdAt: containerAudit.createdAt,
@@ -50,13 +44,8 @@ export const createStockAudit = async (stockAudit: StockAudit) => {
     containerId: stockAudit.containerId,
     containerLabel: stockAudit.containerLabel,
     type: stockAudit.type,
-    quantity: stockAudit.quantity,
+    caseQuantity: stockAudit.quantity,
     user: stockAudit.user,
-    fromLocationSiteId: stockAudit.fromSite.siteId,
-    fromLocationSiteName: stockAudit.fromSite.siteName,
-    fromLocationId: stockAudit.fromSite.locationId,
-    fromLocationnName: stockAudit.fromSite.locationName,
-    fromLocationHub: stockAudit.fromSite.hub,
     toLocationSiteId: stockAudit.toSite.siteId,
     toLocationSiteName: stockAudit.toSite.siteName,
     toLocationId: stockAudit.toSite.locationId,
